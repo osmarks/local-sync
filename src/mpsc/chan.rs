@@ -91,6 +91,16 @@ pub enum SendError {
     RxClosed,
 }
 
+impl fmt::Display for SendError {
+    fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match *self {
+            SendError::RxClosed => "sending on a closed channel".fmt(fmt)
+        }
+    }
+}
+
+impl Error for SendError {}
+
 pub(crate) struct Rx<T, S>
 where
     S: Semaphore,
